@@ -1,0 +1,22 @@
+{
+  "name": "milestoner",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@biomejs/biome": "2.0.6",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@effect/platform-bun": "^0.72.3",
+    "@effect/sql": "^0.40.1",
+    "@effect/sql-drizzle": "^0.39.1",
+    "effect": "^3.16.10"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher"
+  ]
+}
