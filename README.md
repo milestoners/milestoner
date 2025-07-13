@@ -1,4 +1,4 @@
-# milestoner
+# MileStoner - your osu! milestone tracker
 
 To install dependencies:
 
