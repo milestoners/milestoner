@@ -11,6 +11,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@effect/platform": "^0.87.1",
     "@effect/platform-bun": "^0.72.3",
     "@effect/sql": "^0.40.1",
     "@effect/sql-drizzle": "^0.39.1",
