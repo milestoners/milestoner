@@ -4,19 +4,19 @@
     "": {
       "name": "milestoner",
       "dependencies": {
-        "@effect/platform": "^0.87.1",
-        "@effect/platform-bun": "^0.72.3",
-        "@effect/sql": "^0.40.1",
-        "@effect/sql-drizzle": "^0.39.1",
+        "@effect/platform": "^0.87.13",
+        "@effect/platform-bun": "^0.72.18",
+        "@effect/sql": "^0.40.14",
+        "@effect/sql-drizzle": "^0.39.14",
         "@effect/sql-pg": "^0.41.14",
-        "effect": "^3.16.10",
+        "effect": "^3.16.13",
       },
       "devDependencies": {
         "@biomejs/biome": "2.0.6",
         "@types/bun": "latest",
       },
       "peerDependencies": {
-        "typescript": "^5",
+        "typescript": "^5.8.3",
       },
     },
   },

@@ -1,5 +1,6 @@
-import { Console, Effect } from "effect";
+import { Console, Effect, Layer } from "effect";
+import { StatusApiLive } from "./src/api/health";
+import { BunRuntime } from "@effect/platform-bun";
+import { ServerLive } from "./src/api/server";
 
-const program = Console.log("Hello, stoners");
-
-Effect.runSync(program);
+Layer.launch(ServerLive).pipe(BunRuntime.runMain);
