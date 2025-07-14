@@ -6,26 +6,38 @@ import {
   HttpApiSwagger,
 } from "@effect/platform";
 import { BunHttpServer, BunRuntime } from "@effect/platform-bun";
+import { handler } from "@effect/platform/HttpApiBuilder";
 import { serve } from "bun";
-import { Effect, Layer, Schema } from "effect";
+import { DateTime, Duration, Effect, Layer, Option, Schema } from "effect";
 
-const StatusApi = HttpApi.make("Status").add(
-  HttpApiGroup.make("status").add(
-    HttpApiEndpoint.get("health", "/health").addSuccess(
-      Schema.String,
-    ),
-  ),
+const health = HttpApiEndpoint.get("health", "/health").addSuccess(
+  Schema.String,
 );
 
-const StatusLive = HttpApiBuilder.group(
-  StatusApi,
-  "status",
-  (handlers) =>
-    handlers.handle("health", (): Effect.Effect<"Healthy", never, never> => {
-      console.log("Accessed /health");
-      return Effect.succeed("Healthy");
-    }),
+const uptime = HttpApiEndpoint.get("uptime", "/health/uptime").addSuccess(
+  Schema.String,
 );
+
+const StatusGroup = HttpApiGroup.make("status")
+  .add(health)
+  .add(uptime);
+
+const StatusApi = HttpApi.make("Status").add(StatusGroup);
+
+const StatusLive = HttpApiBuilder.group(StatusApi, "status", (handler) => {
+  return Effect.gen(function* () {
+    return handler.handle("health", () => Effect.succeed("Healthy"))
+      .handle(
+        "uptime",
+        () => {
+          const startup = Bun.nanoseconds() / 1_000_000;
+          const startupOption = Duration.millis(startup)
+            .pipe(Duration.format);
+          return Effect.succeed(startupOption);
+        },
+      );
+  });
+});
 
 export const StatusApiLive = HttpApiBuilder.api(StatusApi).pipe(
   Layer.provide(StatusLive),
